@@ -4,19 +4,17 @@ Refenrence: "Modeling long-and short-term temporal patterns with deep neural net
 https://github.com/laiguokun/LSTNet
 
 
-## Datasets
-Download from 
+## Usage
+1. Download electricity dataset from 
 
 https://archive.ics.uci.edu/dataset/321/electricityloaddiagrams20112014
-
-Unzip and place under ./data/
-
-## Pre-process
+2. Unzip and place under ./data/
+3. Pre-process
 ```
 python load_electricity.py
 ```
 
-## How to run it
+3. Train
 ```
 python main.py --gpu 0 --save save/elec.pt --output_fun Linear
 ```
