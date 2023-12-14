@@ -35,5 +35,7 @@ python main.py --gpu 0 --save save/elec.pt --output_fun Linear
 python main.py --gpu 0 --save save/elec.pt --output_fun Linear --high_window 0 --egsignal True
 ```
 
+4. Results would be saved under ./outputs/ and can be plotted by ./outputs/imshow_all.py
+
 
 
