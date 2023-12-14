@@ -29,7 +29,7 @@ python load_electricity.py
 python main.py --gpu 0 --save save/elec.pt --output_fun Linear
 ```
 
-3. Train with generated linear signal with noise & test
+3. Train & test with generated linear signal with noise 
 
 ```
 python main.py --gpu 0 --save save/elec.pt --output_fun Linear --high_window 0 --egsignal True
