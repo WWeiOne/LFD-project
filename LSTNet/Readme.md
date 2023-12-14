@@ -12,14 +12,14 @@ https://archive.ics.uci.edu/dataset/321/electricityloaddiagrams20112014
 Unzip and place under ./data/
 
 ## Pre-process
-
 ```
 python load_electricity.py
 ```
 
 ## How to run it
+```
+python main.py --gpu 0 --save save/elec.pt --output_fun Linear
+```
 
-```
-python main.py --gpu 0 --horizon 24 --save save/elec.pt --output_fun Linear
-```
+
 
