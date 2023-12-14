@@ -14,7 +14,7 @@ Test_Only = False # Cost 2~3 hours to reproduce the same results.
 # Test_Only = True  # For quick test, will finish within 10 minutes, but inaccurate.
 ```
 
-## Functions
+### Functions
 1. Arima_Model class in `arima_model`
     1. init: compile combination of parameters.
     2. fit: test all parameters to choose the best combination and train the model.
