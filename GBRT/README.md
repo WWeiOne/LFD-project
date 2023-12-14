@@ -3,12 +3,10 @@
 Refenrence: "Do We Really Need Deep Learning Models for 
 Time Series Forecasting?" paper and its code https://github.com/Daniela-Shereen/GBRT-for-TSF/tree/main
 
-## Requirements
-* 1- numpy
-* 2- pandas
-* 3- XGBoost python library 
-* 4- scikit-learn
-
+## Modifications
+* For electricity code, debugging and modifying the code with different vectorization since the input dimension is different.
+* Write nasdaq and pm2.5 code based on the electricity code, rewrite the data loading and feature engineering part.
+* Rewrite the evluation part for unifyed setting.
 
 ## Datasets
 
@@ -18,5 +16,7 @@ Time Series Forecasting?" paper and its code https://github.com/Daniela-Shereen/
 
 ```
 python xgboostWB_electricity.py
+python xgboostWB_nasdaq.py
+python xgboostWB_pm25.py
 ```
 
