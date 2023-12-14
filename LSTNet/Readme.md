@@ -1,14 +1,13 @@
 # LSTNet
 Refenrence: "Modeling long-and short-term temporal patterns with deep neural networks." 
-https://github.com/laiguokun/LSTNet
 
-## Requirements
+https://github.com/laiguokun/LSTNet
 
 
 ## Datasets
 Download from 
 
-archive.ics.uci.edu/dataset/321/electricityloaddiagrams20112014
+https://archive.ics.uci.edu/dataset/321/electricityloaddiagrams20112014
 
 Unzip and place under ./data/
 
