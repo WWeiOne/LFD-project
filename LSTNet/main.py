@@ -14,9 +14,9 @@ import matplotlib.pyplot as plt
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-def get_Data(person_id, window_size, batch_size, shuffle):
-    input_signal = True # To use a linear signal with noise, set False here
-    if input_signal:
+def get_Data(person_id, window_size, batch_size, shuffle,mysig):
+    # To use a linear signal with noise, set False here
+    if not mysig:
         person_id = 300
         window_size = 24
             
@@ -49,9 +49,9 @@ def get_Data(person_id, window_size, batch_size, shuffle):
                                          shuffle = shuffle)
     return loader
 
-def get_Data_test(person_id, window_size, batch_size, shuffle):
-    input_signal = True # To use a linear signal with noise, set False here
-    if input_signal:
+def get_Data_test(person_id, window_size, batch_size, shuffle,mysig):
+    # To use a linear signal with noise, set False here
+    if not mysig:
         person_id = 300
         window_size = 24
             
@@ -82,7 +82,7 @@ def get_Data_test(person_id, window_size, batch_size, shuffle):
                                          shuffle = shuffle)
     return loader
 
-def evaluate(data, X, Y, model, evaluateL2, evaluateL1, batch_size, fig_i):
+def evaluate(data, X, Y, model, evaluateL2, evaluateL1, batch_size, fig_i, mysig):
     model.eval();
     total_loss = 0;
     total_loss_l1 = 0;
@@ -90,7 +90,7 @@ def evaluate(data, X, Y, model, evaluateL2, evaluateL1, batch_size, fig_i):
     predict = None;
     test = None;
     
-    loader = get_Data(300, 168, 6,True)
+    loader = get_Data(300, 168, 6,True,mysig)
     for i, (X, Y) in enumerate(loader):  
         X = X.cuda()
         Y = Y.cuda()
@@ -121,7 +121,7 @@ def evaluate(data, X, Y, model, evaluateL2, evaluateL1, batch_size, fig_i):
 
 
     # HHC
-    loader = get_Data_test(300, 7*24, 1,False)
+    loader = get_Data_test(300, 7*24, 1,False,mysig)
     pred = []
     truth = []
     for i, (X, Y) in enumerate(loader):  
@@ -143,11 +143,11 @@ def evaluate(data, X, Y, model, evaluateL2, evaluateL1, batch_size, fig_i):
     fig_i = fig_i+1
     return rse, rae, correlation;
 
-def train(data, X, Y, model, criterion, optim, batch_size):
+def train(data, X, Y, model, criterion, optim, batch_size,mysig):
     model.train();
     total_loss = 0;
     n_samples = 0;
-    loader = get_Data(300, 7*24, 6,True)
+    loader = get_Data(300, 7*24, 6,True,mysig)
     for i, (X, Y) in enumerate(loader):  
         X = X.cuda()
         Y = Y.cuda()
@@ -249,6 +249,7 @@ parser.add_argument('--horizon', type=int, default=12)
 parser.add_argument('--skip', type=float, default=24)
 parser.add_argument('--hidSkip', type=int, default=5)
 parser.add_argument('--L1Loss', type=bool, default=True)
+parser.add_argument('--egsignal', type=bool, default=False)
 parser.add_argument('--normalize', type=int, default=2)
 parser.add_argument('--output_fun', type=str, default='sigmoid')
 args = parser.parse_args()
@@ -301,8 +302,8 @@ try:
     for epoch in range(1, args.epochs+1):
         
         epoch_start_time = time.time()
-        train_loss = train(Data, Data.train[0], Data.train[1], model, criterion, optim, args.batch_size)
-        val_loss, val_rae, val_corr = evaluate(Data, Data.valid[0], Data.valid[1], model, evaluateL2, evaluateL1, args.batch_size, epoch);
+        train_loss = train(Data, Data.train[0], Data.train[1], model, criterion, optim, args.batch_size, args.egsignal)
+        val_loss, val_rae, val_corr = evaluate(Data, Data.valid[0], Data.valid[1], model, evaluateL2, evaluateL1, args.batch_size, epoch, args.egsignal);
         print('| end of epoch {:3d} | time: {:5.2f}s | train_loss {:5.4f} | valid rse {:5.4f} | valid rae {:5.4f} | valid corr  {:5.4f}'.format(epoch, (time.time() - epoch_start_time), train_loss, val_loss, val_rae, val_corr))
         # Save the model if the validation loss is the best we've seen so far.
 
@@ -311,7 +312,7 @@ try:
                 torch.save(model, f)
             best_val = val_loss
         if epoch % 5 == 0:
-            test_acc, test_rae, test_corr  = evaluate(Data, Data.test[0], Data.test[1], model, evaluateL2, evaluateL1, args.batch_size, epoch);
+            test_acc, test_rae, test_corr  = evaluate(Data, Data.test[0], Data.test[1], model, evaluateL2, evaluateL1, args.batch_size, epoch, args.egsignal);
             print ("test rse {:5.4f} | test rae {:5.4f} | test corr {:5.4f}".format(test_acc, test_rae, test_corr))
 
 except KeyboardInterrupt:
