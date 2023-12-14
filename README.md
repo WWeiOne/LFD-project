@@ -58,9 +58,7 @@ Refenrence: "Modeling long-and short-term temporal patterns with deep neural net
 * write `./outputs/Plot/imshow_all.py` to plot training, testing, prediction in one figure
 
 ## Usage
-1. Download electricity dataset from 
-
-https://archive.ics.uci.edu/dataset/321/electricityloaddiagrams20112014
+1. Download [electric dataset](https://archive.ics.uci.edu/dataset/321/electricityloaddiagrams20112014)
 
 2. Unzip and place under `./data/`
   
