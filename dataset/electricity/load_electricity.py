@@ -51,7 +51,7 @@ for i in range(1, 371):
     column_data_val = np.array([float(str(element).replace(',', '.')) for element in column_data])
     data_all[:, i-1] = column_data_val
 
-save_name = 'dataset_elec.npy'
+save_name = '../dataset_elec.npy'
 np.save(save_name, data_all)
 
 
