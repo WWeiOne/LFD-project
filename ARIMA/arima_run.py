@@ -28,9 +28,9 @@ training_data = data_my[-data_point_start:-training_point_end, person_id-1]
 test_data = data_my[-data_point_start:-training_point_end+200, person_id-1]
 
 # parameter range for "Grid search" of seasonal ARIMA model.
-p_range = range(5)
-d_range = range(5)
-q_range = range(5)
+p_range = range(2)
+d_range = range(2)
+q_range = range(2)
 
 # the seasonal periodicy is 24 hours, 24*60/15 = 96 points per season.
 seasonal_m = int(24 * 60 / 15)
